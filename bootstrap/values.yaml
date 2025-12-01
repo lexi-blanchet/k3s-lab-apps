@@ -12,6 +12,6 @@ applications:
       helm:
         releaseName: kubernetes-dashboard
         valuesObject:
-        ingress:
-          enabled: true
-          ingressClassName: traefik
+          ingress:
+            enabled: true
+            ingressClassName: traefik
