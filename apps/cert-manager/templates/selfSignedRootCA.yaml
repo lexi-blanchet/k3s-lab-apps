@@ -1,0 +1,87 @@
+# Create self-signed issuer and bootstrap root certificate Cluster Issuer
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-bootstrap-issuer
+  annotations:
+    "helm.sh/hook": post-install
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: selfsigned-root-ca
+  namespace: cert-manager
+  annotations:
+    "helm.sh/hook": post-install
+spec:
+  isCA: true
+  commonName: selfsigned-root-ca
+  secretName: selfsigned-root-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-bootstrap-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-root-ca-issuer
+  annotations:
+    "helm.sh/hook": post-install
+spec:
+  ca:
+    secretName: selfsigned-root-secret
+---
+# Intermediate cert to sign certs for services
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: selfsigned-intermediate-ca
+  namespace: cert-manager
+  annotations:
+    "helm.sh/hook": post-install
+spec:
+  isCA: true
+  commonName: selfsigned-intermediate-ca
+  secretName: selfsigned-intermediate-ca-secret
+  duration: 43800h # 5y
+  renewBefore: 35040h # 4y
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-root-ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-intermediate-ca-issuer
+  annotations:
+    "helm.sh/hook": post-install
+spec:
+  ca:
+    secretName: selfsigned-intermediate-ca-secret
+---
+# Wildcard cert for *.test.local which pihole forwards to localhost
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-test-local
+  namespace: cert-manager
+  annotations:
+    "helm.sh/hook": post-install
+spec:
+  secretName: wildcard-test-local-tls
+  dnsNames:
+    - "test.local"
+    - "*.test.local"
+  issuerRef:
+    name: selfsigned-intermediate-ca-issuer
+    kind: ClusterIssuer

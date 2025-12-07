@@ -1,4 +1,0 @@
-app:
-  ingress:
-    enabled: true
-    ingressClassName: traefik
