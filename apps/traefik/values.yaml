@@ -20,8 +20,8 @@ traefik:
         namespacePolicy:
           from: All
         certificateRefs:
-          - name: wildcard-test-local-tls
-            kind: Secret
+        - name: wildcard-test-local-tls
+          kind: Secret
         mode: Terminate
   ports:
     web:
