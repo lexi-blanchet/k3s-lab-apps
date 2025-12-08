@@ -8,3 +8,4 @@ argo-cd:
     secret:
       annotations:
         "secret-generator.v1.mittwald.de/autogenerate": "admin.password"
+        "secret-generator.v1.mittwald.de/type": "basic-auth"

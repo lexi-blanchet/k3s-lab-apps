@@ -1,7 +1,7 @@
 traefik:
   ingressRoute:
     dashboard:
-      enabled: false
+      enabled: true
       matchRule: Host(`traefik.test.local`)
       entryPoints: ["websecure"]
       middlewares:
