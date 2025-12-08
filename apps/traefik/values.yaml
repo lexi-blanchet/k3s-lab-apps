@@ -1,4 +1,6 @@
 traefik:
+  deployment:
+    kind: DaemonSet
   ingressRoute:
     dashboard:
       enabled: false
