@@ -1,7 +1,7 @@
 traefik:
   ingressRoute:
     dashboard:
-      enabled: true
+      enabled: false
       matchRule: Host(`traefik.test.local`)
       entryPoints: ["websecure"]
       middlewares:
@@ -42,10 +42,9 @@ traefik:
     kind: Secret
     metadata:
       name: traefik-dashboard-auth-secret
-      annotations:
-        secret-generator.v1.mittwald.de/autogenerate: password
     stringData:
       username: admin
+      password: changeme
 
   - apiVersion: traefik.io/v1alpha1
     kind: Middleware
