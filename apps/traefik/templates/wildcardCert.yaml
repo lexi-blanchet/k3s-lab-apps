@@ -1,4 +1,3 @@
-# Wildcard cert for *.test.local which pihole forwards to localhost
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
