@@ -1,0 +1,56 @@
+traefik:
+  ingressRoute:
+    dashboard:
+      enabled: false
+      matchRule: Host(`traefik.test.local`)
+      entryPoints: ["websecure"]
+      middlewares:
+        - name: traefik-dashboard-auth
+  providers:
+    kubernetesGateway:
+      enabled: true
+  gateway:
+    listeners:
+      web:
+        namespacePolicy:
+          from: All
+      websecure:
+        port: 8443
+        protocol: HTTPS
+        namespacePolicy:
+          from: All
+        certificateRefs:
+          - name: wildcard-test-local-tls
+            kind: Secret
+        mode: Terminate
+  ports:
+    web:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+    websecure:
+      asDefault: true
+  tlsStore:
+    default:
+      defaultCertificate:
+        secretName: wildcard-test-local-tls
+  # Dashboard Auth
+  extraObjects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: traefik-dashboard-auth-secret
+      annotations:
+        secret-generator.v1.mittwald.de/autogenerate: password
+    stringData:
+      username: admin
+
+  - apiVersion: traefik.io/v1alpha1
+    kind: Middleware
+    metadata:
+      name: traefik-dashboard-auth
+    spec:
+      basicAuth:
+        secret: traefik-dashboard-auth-secret
