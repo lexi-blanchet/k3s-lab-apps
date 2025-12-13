@@ -68,18 +68,3 @@ metadata:
 spec:
   ca:
     secretName: selfsigned-intermediate-ca-secret
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: wildcard-test-local
-  annotations:
-    "helm.sh/hook": post-install
-spec:
-  secretName: wildcard-test-local-tls
-  dnsNames:
-    - "test.local"
-    - "*.test.local"
-  issuerRef:
-    name: selfsigned-intermediate-ca-issuer
-    kind: ClusterIssuer
