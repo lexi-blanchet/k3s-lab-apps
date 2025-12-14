@@ -4,6 +4,7 @@ metadata:
   name: cluster-infra
   annotations:
     "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "0"
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -13,20 +14,20 @@ spec:
       {{ .Values.repos.infra | toYaml | nindent 6 | trim }}
   template:
     metadata:
-      name: "{{`{{.Values.chartName}}`}}"
+      name: "{{`{{.chartName}}`}}"
       finalizers:
       - resources-finalizer.argocd.argoproj.io
       annotations:
-        argocd.argoproj.io/sync-wave: "{{`{{ .Values.syncWave | quote }}`}}"
+        argocd.argoproj.io/sync-wave: "{{`{{ .syncWave | quote }}`}}"
     spec:
       project: "default"
       source:
-        repoURL: "{{`{{.Values.repoURL | quote }}`}}"
-        targetRevision: "{{`{{.Values.revision}}`}}"
-        path: "{{`{{.Values.path}}`}}"
+        repoURL: "{{`{{.repoURL | quote }}`}}"
+        targetRevision: "{{`{{.revision}}`}}"
+        path: "{{`{{.path}}`}}"
       destination:
-        server: "{{`{{.Values.server}}`}}"
-        namespace: "{{`{{.Values.chartName}}`}}"
+        server: "{{`{{.server}}`}}"
+        namespace: "{{`{{.chartName}}`}}"
       syncPolicy:
         syncOptions:
           - CreateNamespace=true

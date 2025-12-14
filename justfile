@@ -14,7 +14,7 @@ bootstrap:
   . util\Randomize-ArgoPassword.ps1
 
 install-argo:
-  helm install argo-cd argo-cd/ --create-namespace --namespace argo-cd -f argo-cd/values.yaml --wait \
+  helm install argo-cd argo-cd/ --create-namespace --namespace argo-cd -f argo-cd/values.yaml --wait &&\
   . util\Randomize-ArgoPassword.ps1
 
 install-app appname:
