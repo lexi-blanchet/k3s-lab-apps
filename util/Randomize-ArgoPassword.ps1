@@ -21,7 +21,7 @@ argocd account update-password --insecure --current-password $ARGO_PASSWORD --ne
 kubectl -n argocd delete secret argocd-initial-admin-secret
 if (-not(test-path ".tmp")) { mkdir ".tmp" }
 $NEW_PASSWORD | Out-File ".tmp\\argopass" -NoNewline -Force
-argocd login $server--insecure --username admin --password $NEW_PASSWORD
+argocd login $server --insecure --username admin --password $NEW_PASSWORD
 $ARGO_PASSWORD = $null
 $NEW_PASSWORD = $null
 argocd version --insecure
