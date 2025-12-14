@@ -22,7 +22,7 @@ spec:
     spec:
       project: "default"
       source:
-        repoURL: "{{`{{.repoURL | quote }}`}}"
+        repoURL: "{{`{{.repoURL}}`}}"
         targetRevision: "{{`{{.revision}}`}}"
         path: "{{`{{.path}}`}}"
       destination:
