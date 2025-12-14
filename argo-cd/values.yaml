@@ -1,0 +1,23 @@
+argo-cd:
+  global:
+    domain: argocd.test.local
+
+  configs:
+    params:
+      server.insecure: true
+
+repos:
+  # Charts found in the infra folder, the backbone of the cluster
+  infra:
+    - chartName: cert-manager
+      repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+      path: apps/infra/cert-manager
+      revision: dev
+      syncWave: 1
+      url: https://kubernetes.default.svc
+    - chartName: traefik
+      repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+      path: apps/infra/traefik
+      revision: dev
+      syncWave: 2
+      url: https://kubernetes.default.svc

@@ -1,3 +1,8 @@
+certs:
+  - certName: wildcard-test-local-tls
+    dnsNames:
+    - "test.local"
+    - "*.test.local"
 traefik:
   deployment:
     kind: DaemonSet
@@ -47,7 +52,6 @@ traefik:
     stringData:
       username: admin
       password: changeme
-
   - apiVersion: traefik.io/v1alpha1
     kind: Middleware
     metadata:
@@ -55,3 +59,4 @@ traefik:
     spec:
       basicAuth:
         secret: traefik-dashboard-auth-secret
+  

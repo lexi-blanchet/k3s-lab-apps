@@ -1,11 +1,24 @@
 # use PowerShell 7 instead of sh:
 set shell := ["pwsh.exe", "-c"]
 
+create:
+  k3d cluster create -c .\k3d-default.yaml --k3s-arg "--node-taint=CriticalAddonsOnly=true:NoExecute@server:*"
+
+delete:
+  k3d cluster delete -c .\k3d-default.yaml
+
 bootstrap:
-  helm install bootstrap ./bootstrap --namespace argo-cd -f bootstrap/values.yaml --wait
+  just create
+  just install-argo
+  just deploy-apps
+  . util\Randomize-ArgoPassword.ps1
 
-install appname:
-  helm install {{appname}} apps/{{appname}}/ --create-namespace --namespace {{appname}} -f apps/{{appname}}/values.yaml --wait
+install-argo:
+  helm install argo-cd argo-cd/ --create-namespace --namespace argo-cd -f argo-cd/values.yaml --wait \
+  . util\Randomize-ArgoPassword.ps1
 
-upgrade appname:
-  helm upgrade {{appname}} apps/{{appname}}/ --create-namespace --namespace {{appname}} -f apps/{{appname}}/values.yaml --reset-then-reuse-values --wait
+install-app appname:
+  helm install {{appname}} apps/infra/{{appname}}/ --create-namespace --namespace {{appname}} -f apps/infra/{{appname}}/values.yaml --wait
+
+upgrade-app appname:
+  helm upgrade {{appname}} apps/infra/{{appname}}/ --create-namespace --namespace {{appname}} -f apps/{{appname}}/values.yaml --reset-then-reuse-values --wait
