@@ -22,8 +22,8 @@ spec:
             until kubectl wait --for=condition=Established crd/ingressroutes.traefik.io --timeout=120s; do 
               sleep 5;
             done;
-            echo "'{{ .Values.crdName }}' CRD is established.";
+            echo "crd/ingressroutes.traefik.io CRD is established.";
       restartPolicy: OnFailure
-      # You might need a serviceAccountName if your cluster uses RBAC that restricts default accounts
-      # serviceAccountName: your-service-account
+      # Default argocd serviceaccount doesn't let us query CRDs
+      serviceAccountName: argocd-application-controller 
   backoffLimit: 4

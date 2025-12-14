@@ -15,7 +15,7 @@ spec:
     path: apps/argo-cd
   destination:
     server: https://kubernetes.default.svc
-    namespace: argo-cd
+    namespace: argocd
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

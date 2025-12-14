@@ -1,5 +1,5 @@
 # Requires 7
-$ARGO_PASSWORD = kubectl -n argo-cd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_)) }
+$ARGO_PASSWORD = kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_)) }
 $NEW_PASSWORD = -join ((65..90) + (97..122) + (48..57) + 33, 64, 35, 36, 37 | ForEach-Object { [char]$_ } | Get-Random -Count 20)
 $server = "argocd.test.local"
 
@@ -18,7 +18,7 @@ for ($s=1; $s -lt $max_tries; $s+=1) {
     }
 }
 argocd account update-password --insecure --current-password $ARGO_PASSWORD --new-password $NEW_PASSWORD
-kubectl -n argo-cd delete secret argocd-initial-admin-secret
+kubectl -n argocd delete secret argocd-initial-admin-secret
 if (-not(test-path ".tmp")) { mkdir ".tmp" }
 $NEW_PASSWORD | Out-File ".tmp\\argopass" -NoNewline -Force
 argocd login $server--insecure --username admin --password $NEW_PASSWORD
