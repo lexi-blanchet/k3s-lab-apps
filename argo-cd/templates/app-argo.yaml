@@ -11,7 +11,7 @@ spec:
   project: "default"
   source:
     repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
-    targetRevision: dev
+    targetRevision: main
     path: apps/argo-cd
   destination:
     server: https://kubernetes.default.svc

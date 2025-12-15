@@ -11,12 +11,12 @@ repos:
     - chartName: cert-manager
       repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
       path: apps/infra/cert-manager
-      revision: dev
+      revision: main
       syncWave: 1
       server: https://kubernetes.default.svc
     - chartName: traefik
       repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
       path: apps/infra/traefik
-      revision: dev
+      revision: main
       syncWave: 2
       server: https://kubernetes.default.svc
