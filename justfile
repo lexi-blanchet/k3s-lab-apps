@@ -10,7 +10,6 @@ delete:
 bootstrap:
   just create
   just install-argo
-  just deploy-apps
   . util\Randomize-ArgoPassword.ps1
 
 install-argo:

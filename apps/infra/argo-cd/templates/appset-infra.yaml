@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-infra
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "0"
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements: 
+      {{ .Values.repos.infra | toYaml | nindent 6 | trim }}
+  template:
+    metadata:
+      name: "{{`{{.chartName}}`}}"
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+      annotations:
+        argocd.argoproj.io/sync-wave: "{{`{{ .syncWave | quote }}`}}"
+    spec:
+      project: "default"
+      source:
+        repoURL: "{{`{{.repoURL}}`}}"
+        targetRevision: "{{`{{.revision}}`}}"
+        path: "{{`{{.path}}`}}"
+      destination:
+        server: "{{`{{.server}}`}}"
+        namespace: "{{`{{.chartName}}`}}"
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: false # Too important
+          selfHeal: true

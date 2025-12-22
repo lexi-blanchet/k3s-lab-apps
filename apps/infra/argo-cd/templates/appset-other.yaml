@@ -4,33 +4,33 @@ metadata:
   name: cluster-infra
   annotations:
     "helm.sh/hook": post-install
-    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-weight": "4"
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - list:
-      elements: 
-      {{ .Values.repos.infra | toYaml | nindent 6 | trim }}
+  - git:
+      repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+      revision: dev-rancher
+      directories:
+      - path: apps/other/*
   template:
     metadata:
-      name: "{{`{{.chartName}}`}}"
+      name: "{{`{{.path.basename}}`}}"
       finalizers:
       - resources-finalizer.argocd.argoproj.io
-      annotations:
-        argocd.argoproj.io/sync-wave: "{{`{{ .syncWave | quote }}`}}"
     spec:
       project: "default"
       source:
         repoURL: "{{`{{.repoURL}}`}}"
         targetRevision: "{{`{{.revision}}`}}"
-        path: "{{`{{.path}}`}}"
+        path: "{{`{{.path.path}}`}}"
       destination:
-        server: "{{`{{.server}}`}}"
-        namespace: "{{`{{.chartName}}`}}"
+        server: https://kubernetes.default.svc
+        namespace: "{{`{{.path.basename}}`}}"
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
         automated:
-          prune: false
+          prune: true
           selfHeal: true
