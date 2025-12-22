@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: cluster-infra
+  name: cluster-other
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "4"
