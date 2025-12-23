@@ -12,7 +12,7 @@ spec:
   generators:
   - git:
       repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
-      revision: dev-rancher
+      revision: {{ .Values.defaultTargetRevision }}
       directories:
       - path: apps/other/*
   template:
@@ -23,8 +23,8 @@ spec:
     spec:
       project: "default"
       source:
-        repoURL: "{{`{{.repoURL}}`}}"
-        targetRevision: "{{`{{.revision}}`}}"
+        repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+        targetRevision: {{ .Values.defaultTargetRevision }}
         path: "{{`{{.path.path}}`}}"
       destination:
         server: https://kubernetes.default.svc
