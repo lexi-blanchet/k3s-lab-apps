@@ -1,3 +1,5 @@
+# Git branch to use
+defaultTargetRevision: dev-rancher
 repos:
   # Charts found in the infra folder, the backbone of the cluster
   infra:
