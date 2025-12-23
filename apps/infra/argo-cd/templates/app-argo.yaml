@@ -4,8 +4,9 @@ metadata:
   name: argo-cd
   annotations:
     "helm.sh/hook": post-install
-    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-weight": "99"
     "argocd.argoproj.io/sync-options": Prune=false # Don't delete the source of truth
+    "argocd.argoproj.io/sync-wave": "99"
 spec:
   project: "default"
   source:
