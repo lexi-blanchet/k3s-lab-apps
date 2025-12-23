@@ -16,6 +16,7 @@ spec:
   template:
     metadata:
       name: "{{`{{.chartName}}`}}"
+      namespace: argo-cd
       finalizers:
       - resources-finalizer.argocd.argoproj.io
       annotations:
