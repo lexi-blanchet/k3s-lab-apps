@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-appdefinitions
+  namespace: argo-cd
+spec:
+  project: "default"
+  source:
+    repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+    targetRevision: dev-rancher
+    path: apps/argocd-appdefinitions
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-cd
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true

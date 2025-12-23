@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: cluster-other
+  namespace: argo-cd
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "4"
