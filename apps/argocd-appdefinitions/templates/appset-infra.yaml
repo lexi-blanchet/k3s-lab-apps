@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: cluster-infra
-  namespace: argo-cd
+  namespace: {{ .Values.argocdNamespace }}
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "1"
@@ -16,7 +16,7 @@ spec:
   template:
     metadata:
       name: "{{`{{.chartName}}`}}"
-      namespace: argo-cd
+      namespace: {{ .Values.argocdNamespace }}
       annotations:
         argocd.argoproj.io/sync-wave: "{{`{{ .syncWave | quote }}`}}"
     spec:

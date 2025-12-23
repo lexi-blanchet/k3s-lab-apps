@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argo-cd
-  namespace: argo-cd
+  namespace: {{ .Values.argocdNamespace }}
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "99"
@@ -15,7 +15,7 @@ spec:
     path: apps/infra/argo-cd
   destination:
     server: https://kubernetes.default.svc
-    namespace: argo-cd
+    namespace: {{ .Values.argocdNamespace }}
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

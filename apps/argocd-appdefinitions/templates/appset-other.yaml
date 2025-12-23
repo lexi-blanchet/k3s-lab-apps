@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: cluster-other
-  namespace: argo-cd
+  namespace: {{ .Values.argocdNamespace }}
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "4"
@@ -10,25 +10,24 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - git:
-      repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
-      revision: {{ .Values.defaultTargetRevision }}
-      directories:
-      - path: apps/other/*
+  - list:
+      elements:
+      {{ .Values.repos.infra | toYaml | nindent 6 | trim }}
   template:
     metadata:
-      name: "{{`{{.path.basename}}`}}"
+      name: "{{`{{.chartName}}`}}"
+      namespace: {{ .Values.argocdNamespace }}
       annotations:
-        argocd.argoproj.io/sync-wave: "99"
+        argocd.argoproj.io/sync-wave: "{{`{{ .syncWave | quote }}`}}"
     spec:
       project: "default"
       source:
-        repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
-        targetRevision: {{ .Values.defaultTargetRevision }}
-        path: "{{`{{.path.path}}`}}"
+        repoURL: "{{`{{.repoURL}}`}}"
+        targetRevision: "{{`{{.revision}}`}}"
+        path: "{{`{{.path}}`}}"
       destination:
-        server: https://kubernetes.default.svc
-        namespace: "{{`{{.path.basename}}`}}"
+        server: "{{`{{.server}}`}}"
+        namespace: "{{`{{.namespace}}`}}"
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
