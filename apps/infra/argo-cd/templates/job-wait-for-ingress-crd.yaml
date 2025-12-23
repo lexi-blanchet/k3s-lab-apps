@@ -6,7 +6,7 @@ metadata:
     # This hook runs after the CRDs in crds/ are installed, but before the rest of the chart
     "helm.sh/hook": post-install, post-upgrade
     # Wait until the hook is ready (Job runs to completion)
-    "helm.sh/hook-weight": "1" 
+    "helm.sh/hook-weight": "2" 
     # Clean up the job after it succeeds
     "helm.sh/hook-delete-policy": hook-succeeded 
 spec:
