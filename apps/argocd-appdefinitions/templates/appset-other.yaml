@@ -12,7 +12,7 @@ spec:
   generators:
   - list:
       elements:
-      {{ .Values.repos.infra | toYaml | nindent 6 | trim }}
+      {{ .Values.repos.other | toYaml | nindent 6 | trim }}
   template:
     metadata:
       name: "{{`{{.chartName}}`}}"
