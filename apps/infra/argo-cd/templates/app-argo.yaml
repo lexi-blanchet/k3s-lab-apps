@@ -2,12 +2,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argo-cd
-  labels:
-    app.kubernetes.io/managed-by: Helm
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "1"
-    "argocd.argoproj.io/sync-options": Prune=false
+    "argocd.argoproj.io/sync-options": Prune=false # Don't delete the source of truth
 spec:
   project: "default"
   source:
@@ -20,7 +18,7 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-      - SkipDryRunOnMissingResource=true
+      - SkipDryRunOnMissingResource=true # Avoid race condition so we can actually bootstrap
     automated:
       prune: false
       selfHeal: true
