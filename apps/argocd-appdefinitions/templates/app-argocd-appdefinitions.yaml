@@ -13,6 +13,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: argo-cd
   syncPolicy:
+    preserveResourcesOnDeletion: true
     syncOptions:
       - CreateNamespace=true
     automated:
