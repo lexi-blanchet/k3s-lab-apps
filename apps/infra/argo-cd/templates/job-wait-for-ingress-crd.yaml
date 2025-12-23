@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "{{ .Release.Name }}-wait-for-crd"
+  name: "{{ .Release.Name }}-wait-for-ingress-crd"
   annotations:
     # This hook runs after the CRDs in crds/ are installed, but before the rest of the chart
     "helm.sh/hook": post-install, post-upgrade

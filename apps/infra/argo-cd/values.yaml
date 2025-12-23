@@ -20,9 +20,3 @@ repos:
       revision: dev-rancher
       syncWave: 2
       server: https://kubernetes.default.svc
-    - chartName: argo-cd
-      repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
-      path: apps/infra/argo-cd
-      revision: dev-rancher
-      syncWave: 3
-      server: https://kubernetes.default.svc
