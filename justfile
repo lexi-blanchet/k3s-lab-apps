@@ -12,9 +12,9 @@ bootstrap:
   just install-argo
   . util\Randomize-ArgoPassword.ps1
 
-install-argo:
-  helm install argo-cd argo-cd/argo-cd -n argo-cd --create-namespace --wait --wait-for-jobs &&\
-  kubectl apply -n argo-cd -f .\apps\argocd-appdefinitions\templates\app-argocd-appdefinitions.yaml
+install-argo helmargs="":
+  helm upgrade --install argo-cd argo-cd/argo-cd -n argo-cd --create-namespace --wait --wait-for-jobs {{helmargs}} &&\
+  kubectl apply -n argo-cd -f .\apps\argocd-appdefinitions\app-argocd-appdefinitions.yaml
 
 install-app appname:
   helm install {{appname}} apps/other/{{appname}}/ --create-namespace --namespace {{appname}} -f apps/other/{{appname}}/values.yaml --wait
