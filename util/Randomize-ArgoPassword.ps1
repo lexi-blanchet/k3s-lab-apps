@@ -1,7 +1,8 @@
 # Requires 7
 $server = "argocd.test.local"
 $namespace = "argo-cd"
-$ARGO_PASSWORD = kubectl -n $namespace get secret argocd-initial-admin-secret --request-timeout 10m -o jsonpath="{.data.password}" | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_)) }
+kubectl wait -n $namespace --for=create secret/argocd-initial-admin-secret --timeout=3m
+$ARGO_PASSWORD = kubectl -n $namespace get secret argocd-initial-admin-secret --request-timeout 30s -o jsonpath="{.data.password}" | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_)) }
 $NEW_PASSWORD = -join ((65..90) + (97..122) + (48..57) + 33, 64, 35, 36, 37 | ForEach-Object { [char]$_ } | Get-Random -Count 20)
 
 $max_tries = 10

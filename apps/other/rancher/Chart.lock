@@ -1,0 +1,6 @@
+dependencies:
+- name: rancher
+  repository: https://releases.rancher.com/server-charts/latest
+  version: 2.13.1
+digest: sha256:4df53488e23082ed6d901df262f01b530248c84e7acbf7bc4a4601ead5cfa3cf
+generated: "2025-12-22T20:57:33.1511812-07:00"
