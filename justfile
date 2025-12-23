@@ -14,10 +14,10 @@ bootstrap:
 
 install-argo helmargs="":
   helm upgrade --install argo-cd argo-cd/argo-cd -n argo-cd --create-namespace --wait --wait-for-jobs {{helmargs}} &&\
-  kubectl apply -n argo-cd -f .\apps\argocd-appdefinitions\app-argocd-appdefinitions.yaml
+  helm template . -s templates\app-argocd-appdefinitions.yaml | kubectl apply -n argo-cd -f-
 
 install-app appname:
-  helm install {{appname}} apps/other/{{appname}}/ --create-namespace --namespace {{appname}} -f apps/other/{{appname}}/values.yaml --wait
+  helm upgrade --install {{appname}} apps/other/{{appname}}/ --create-namespace --namespace {{appname}} -f apps/other/{{appname}}/values.yaml --wait
 
 upgrade-app category appname:
   helm upgrade {{appname}} apps/{{category}}/{{appname}}/ --create-namespace --namespace {{appname}} -f apps/{{category}}/{{appname}}/values.yaml --reset-then-reuse-values --wait

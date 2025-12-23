@@ -7,7 +7,7 @@ spec:
   project: "default"
   source:
     repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
-    targetRevision: dev-rancher
+    targetRevision: {{ .Values.defaultTargetRevision }}
     path: apps/argocd-appdefinitions
   destination:
     server: https://kubernetes.default.svc
