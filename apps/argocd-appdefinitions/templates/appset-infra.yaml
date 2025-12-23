@@ -40,6 +40,7 @@ spec:
         server: "{{`{{.server}}`}}"
         namespace: "{{`{{.chartName}}`}}"
       syncPolicy:
+        preserveResourcesOnDeletion: true
         syncOptions:
           - CreateNamespace=true
         automated:
