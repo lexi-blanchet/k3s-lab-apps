@@ -1,17 +1,5 @@
 # k3s-lab-apps
 
-- vagrant k3s
-- argocd
-- dashboard
-- prometheus
-- traffic load testing
+Simple k3d implementation that configures core services, cluster management via Rancher, and resource deployment using ArgoCD.
 
-Reqs:
-- k3d
-- kubectl
-- Docker
-- argocd
-- helm
-
-helm dep update charts/argo-cd/
-kubectl -n default get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_)) }
+All urls are mapped to *.test.local which has a local DNS record on my pihole pointing to localhost for convenience.

@@ -1,5 +1,4 @@
 rancher:
   hostname: "rancher.test.local"
   ingress.enabled: false
-  #privateCA: true
   replicas: -1
