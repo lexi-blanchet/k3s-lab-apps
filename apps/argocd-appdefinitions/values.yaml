@@ -1,5 +1,5 @@
 # Git branch to use
-defaultTargetRevision: &targetRevision main
+defaultTargetRevision: &targetRevision chart-testing
 argocdNamespace: argo-cd
 repos:
   # Charts found in the infra folder, the backbone of the cluster
@@ -22,5 +22,5 @@ repos:
       path: apps/other/rancher
       revision: *targetRevision
       namespace: cattle-system
-      syncWave: 1
+      syncWave: 3
       server: https://kubernetes.default.svc

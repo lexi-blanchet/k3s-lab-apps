@@ -1,6 +1,12 @@
 # use PowerShell 7 instead of sh:
 set shell := ["pwsh.exe", "-c"]
 
+# WSL bash child process env vars are annoying
+# source <(just set-kubeconfig)
+set-kubeconfig:
+  #!/usr/bin/env bash
+  echo export KUBECONFIG=$(k3d kubeconfig write --output $HOME/.config/kubeconfig-wsl.yaml)
+
 create:
   k3d cluster create -c .\k3d-default.yaml --k3s-arg "--node-taint=CriticalAddonsOnly=true:NoExecute@server:*"
 
