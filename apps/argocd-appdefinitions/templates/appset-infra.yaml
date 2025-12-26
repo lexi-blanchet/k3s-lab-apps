@@ -25,6 +25,8 @@ spec:
         repoURL: "{{`{{.repoURL}}`}}"
         targetRevision: "{{`{{.revision}}`}}"
         path: "{{`{{.path}}`}}"
+        helm:
+          skipCrds: true
       destination:
         server: "{{`{{.server}}`}}"
         namespace: "{{`{{.chartName}}`}}"
