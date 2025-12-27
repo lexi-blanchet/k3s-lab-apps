@@ -5,6 +5,7 @@ metadata:
   name: selfsigned-bootstrap-issuer
   annotations:
     "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "2"
 spec:
   selfSigned: {}
 ---
@@ -12,9 +13,9 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: selfsigned-root-ca
-  namespace: cert-manager
   annotations:
     "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "2"
 spec:
   isCA: true
   commonName: selfsigned-root-ca
@@ -33,6 +34,7 @@ metadata:
   name: selfsigned-root-ca-issuer
   annotations:
     "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "2"
 spec:
   ca:
     secretName: selfsigned-root-secret
@@ -42,9 +44,9 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: selfsigned-intermediate-ca
-  namespace: cert-manager
   annotations:
     "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "2"
 spec:
   isCA: true
   commonName: selfsigned-intermediate-ca
@@ -65,6 +67,7 @@ metadata:
   name: selfsigned-intermediate-ca-issuer
   annotations:
     "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "2"
 spec:
   ca:
     secretName: selfsigned-intermediate-ca-secret

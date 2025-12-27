@@ -1,0 +1,6 @@
+validate-maintainers: false
+
+chart-repos:
+  - argo-cd=https://argoproj.github.io/argo-helm
+  - rancher=https://releases.rancher.com/server-charts/latest
+  - traefik-crds=https://traefik.github.io/charts
