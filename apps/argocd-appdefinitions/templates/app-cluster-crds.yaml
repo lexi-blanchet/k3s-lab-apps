@@ -6,6 +6,9 @@ metadata:
     "argocd.argoproj.io/sync-wave": "-1"
 spec:
   project: "default"
+  metadata:
+    annotations:
+      argocd.argoproj.io/sync-wave: "-1"
   source:
     repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
     targetRevision: {{ .Values.defaultTargetRevision }}
