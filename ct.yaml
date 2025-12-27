@@ -1,3 +1,9 @@
+remote: origin
+target-branch: main
+chart-dirs:
+  - apps/infra
+  - apps/other
+
 validate-maintainers: false
 
 chart-repos:
