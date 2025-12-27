@@ -17,7 +17,7 @@ bootstrap:
   just create
   just install-argo
   . util\Randomize-ArgoPassword.ps1
-  echo -e "(Linux/WSL) Run the below to enable kubectl:\n\tsource <(just set-kubeconfig)"
+  Write-Output "(Linux/WSL) Run the below to enable kubectl:`n`tsource <(just set-kubeconfig)"
 
 install-argo helmargs="":
   helm upgrade --install argo-cd argo-cd/argo-cd -n argo-cd --create-namespace --wait --wait-for-jobs {{helmargs}} &&\
