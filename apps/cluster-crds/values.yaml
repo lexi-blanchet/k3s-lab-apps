@@ -1,0 +1,2 @@
+traefik-crds:
+  gatewayAPI: true

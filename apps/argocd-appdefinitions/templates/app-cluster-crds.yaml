@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-crds
+  annotations:
+    "argocd.argoproj.io/sync-wave": "-1"
+spec:
+  project: "default"
+  source:
+    repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+    targetRevision: {{ .Values.defaultTargetRevision }}
+    path: apps/cluster-crds
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
