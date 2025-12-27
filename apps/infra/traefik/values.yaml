@@ -43,20 +43,5 @@ traefik:
     default:
       defaultCertificate:
         secretName: wildcard-test-local-tls
-  # Dashboard Auth
-  extraObjects:
-  - apiVersion: v1
-    kind: Secret
-    metadata:
-      name: traefik-dashboard-auth-secret
-    stringData:
-      username: admin
-      password: changeme
-  - apiVersion: traefik.io/v1alpha1
-    kind: Middleware
-    metadata:
-      name: traefik-dashboard-auth
-    spec:
-      basicAuth:
-        secret: traefik-dashboard-auth-secret
+
   
