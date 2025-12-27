@@ -43,5 +43,3 @@ traefik:
     default:
       defaultCertificate:
         secretName: wildcard-test-local-tls
-
-  
