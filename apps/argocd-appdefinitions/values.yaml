@@ -1,5 +1,5 @@
 # Git branch to use
-defaultTargetRevision: &targetRevision chart-testing
+defaultTargetRevision: &targetRevision sealed-secrets # TODO: change back to main
 argocdNamespace: argo-cd
 repos:
   # Charts found in the infra folder, the backbone of the cluster
