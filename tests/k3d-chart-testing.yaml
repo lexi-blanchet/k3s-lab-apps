@@ -1,0 +1,16 @@
+# A separate k3d definition to run chart-testing install against
+---
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: k3s-chart-testing
+servers: 1
+agents: 1
+image: docker.io/rancher/k3s:v1.33.7-k3s1
+
+options:
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik # we want to self-manage
+        nodeFilters:
+          - server:*

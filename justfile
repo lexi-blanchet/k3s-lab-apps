@@ -1,9 +1,17 @@
-# use PowerShell 7 instead of bash:
+# use PowerShell 7 instead of bash
+# I should convert this to just bash
 set shell := ["pwsh.exe", "-c"]
 
 lint:
   #!/usr/bin/env bash
-  ct lint --config ct.yaml
+  ct lint --config ct-lint.yaml
+
+lint-install:
+  #!/usr/bin/env bash
+  k3d cluster create -c tests/k3d-chart-testing.yaml --k3s-arg "--node-taint=CriticalAddonsOnly=true:NoExecute@server:*"
+  ct install --config ct-install.yaml --charts apps/cluster-crds --skip-clean-up
+  ct install --config ct-install.yaml
+  k3d cluster delete -c tests/k3d-chart-testing.yaml
 
 # WSL bash child process env vars are annoying
 # source <(just set-kubeconfig)
