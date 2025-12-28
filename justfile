@@ -1,5 +1,9 @@
-# use PowerShell 7 instead of sh:
+# use PowerShell 7 instead of bash:
 set shell := ["pwsh.exe", "-c"]
+
+lint:
+  #!/usr/bin/env bash
+  ct lint --config ct.yaml
 
 # WSL bash child process env vars are annoying
 # source <(just set-kubeconfig)

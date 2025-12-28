@@ -3,6 +3,7 @@ target-branch: main
 chart-dirs:
   - apps/infra
   - apps/other
+  - apps/
 
 validate-maintainers: false
 

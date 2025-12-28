@@ -44,4 +44,4 @@ jobs:
         run: helm install cluster-crds apps/cluster-crds
 
       - name: Run chart-testing (install)
-        run: ct install --config ct.yaml
+        run: ct install --config ct.yaml --excluded-charts cluster-crds # Don't test install CRDs since we do that every time regardless
