@@ -7,7 +7,7 @@ repos:
     - chartName: sealed-secrets
       repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
       revision: *targetRevision
-      syncwave: 0 # Needs to go first so we can seed secrets properly
+      syncWave: 0 # Needs to go first so we can seed secrets properly
       server: https://kubernetes.default.svc
     - chartName: cert-manager
       repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
