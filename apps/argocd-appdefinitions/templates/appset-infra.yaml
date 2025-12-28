@@ -26,7 +26,7 @@ spec:
         targetRevision: "{{`{{.revision}}`}}"
         path: "{{`{{.path}}`}}"
         helm:
-          skipCrds: true
+          skipCrds: true # We don't want these managed by helm so we can self-install and avoid annoying race conditions
       destination:
         server: "{{`{{.server}}`}}"
         namespace: "{{`{{.chartName}}`}}"
