@@ -12,7 +12,13 @@ spec:
   generators:
   - list:
       elements:
-      {{ .Values.repos.other | toYaml | nindent 6 | trim }}
+      - chartName: rancher
+        repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+        path: apps/other/rancher
+        revision: {{ .Values.defaultTargetRevision }}
+        namespace: cattle-system
+        syncWave: 3
+        server: https://kubernetes.default.svc
   template:
     metadata:
       name: "{{`{{.chartName}}`}}"

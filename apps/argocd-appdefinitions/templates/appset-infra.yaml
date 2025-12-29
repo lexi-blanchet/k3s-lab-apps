@@ -12,7 +12,27 @@ spec:
   generators:
   - list:
       elements: 
-      {{ .Values.repos.infra | toYaml | nindent 6 | trim }}
+      - chartName: sealed-secrets
+        namespace: kube-system
+        repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+        path: apps/infra/sealed-secrets
+        revision: {{ .Values.defaultTargetRevision }}
+        syncWave: 0 # Needs to go first so we can seed secrets properly
+        server: https://kubernetes.default.svc
+      - chartName: cert-manager
+        namespace: cert-manager
+        repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+        path: apps/infra/cert-manager
+        revision: {{ .Values.defaultTargetRevision }}
+        syncWave: 1
+        server: https://kubernetes.default.svc
+      - chartName: traefik
+        namespace: traefik
+        repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+        path: apps/infra/traefik
+        revision: {{ .Values.defaultTargetRevision }}
+        syncWave: 2
+        server: https://kubernetes.default.svc
   template:
     metadata:
       name: "{{`{{.chartName}}`}}"
@@ -29,7 +49,7 @@ spec:
           skipCrds: true # We don't want these managed by helm so we can self-install and avoid annoying race conditions
       destination:
         server: "{{`{{.server}}`}}"
-        namespace: "{{`{{ .namespace | default .chartName}}`}}"
+        namespace: "{{`{{ .namespace }}`}}"
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
