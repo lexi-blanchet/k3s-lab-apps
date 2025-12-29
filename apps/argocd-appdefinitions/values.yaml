@@ -6,6 +6,7 @@ repos:
   infra:
     - chartName: sealed-secrets
       repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
+      path: apps/infra/sealed-secrets
       revision: *targetRevision
       syncWave: 0 # Needs to go first so we can seed secrets properly
       server: https://kubernetes.default.svc
