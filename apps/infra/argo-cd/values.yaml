@@ -4,3 +4,5 @@ argo-cd:
   configs:
     params:
       server.insecure: true
+    secret:
+      createSecret: false
