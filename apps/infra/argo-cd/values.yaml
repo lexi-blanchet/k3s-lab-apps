@@ -3,5 +3,4 @@ argo-cd:
     domain: argocd.test.local
   configs:
     params:
-      server:
-        insecure: true
+      server.insecure: true
