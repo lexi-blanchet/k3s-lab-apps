@@ -5,6 +5,7 @@ repos:
   # Charts found in the infra folder, the backbone of the cluster
   infra:
     - chartName: sealed-secrets
+      namespace: kube-system
       repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
       path: apps/infra/sealed-secrets
       revision: *targetRevision
