@@ -1,2 +1,4 @@
 rules:
   new-lines: disable
+  comments:
+    min-spaces-from-content: 1

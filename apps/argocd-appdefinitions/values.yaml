@@ -1,26 +1,3 @@
 # Git branch to use
-defaultTargetRevision: &targetRevision chart-testing
+defaultTargetRevision: main
 argocdNamespace: argo-cd
-repos:
-  # Charts found in the infra folder, the backbone of the cluster
-  infra:
-    - chartName: cert-manager
-      repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
-      path: apps/infra/cert-manager
-      revision: *targetRevision
-      syncWave: 1
-      server: https://kubernetes.default.svc
-    - chartName: traefik
-      repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
-      path: apps/infra/traefik
-      revision: *targetRevision
-      syncWave: 2
-      server: https://kubernetes.default.svc
-  other:
-    - chartName: rancher
-      repoURL: https://github.com/lexi-blanchet/k3s-lab-apps.git
-      path: apps/other/rancher
-      revision: *targetRevision
-      namespace: cattle-system
-      syncWave: 3
-      server: https://kubernetes.default.svc

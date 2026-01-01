@@ -3,6 +3,7 @@ target-branch: main
 chart-dirs:
   - apps/infra
   - apps/other
+  - apps
 
 validate-maintainers: false
 
@@ -10,3 +11,4 @@ chart-repos:
   - argo-cd=https://argoproj.github.io/argo-helm
   - rancher=https://releases.rancher.com/server-charts/latest
   - traefik-crds=https://traefik.github.io/charts
+  - sealed-secrets=https://bitnami-labs.github.io/sealed-secrets

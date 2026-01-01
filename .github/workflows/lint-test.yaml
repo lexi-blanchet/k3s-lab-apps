@@ -28,13 +28,13 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --config ct.yaml)
+          changed=$(ct list-changed --config ct-lint.yaml)
           if [[ -n "$changed" ]]; then
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --config ct.yaml
+        run: ct lint --config ct-lint.yaml --lint-conf lintconf.yaml
 
       - name: Create kind cluster
         uses: helm/kind-action@v1
@@ -42,6 +42,8 @@ jobs:
       
       - name: Install crds
         run: helm install cluster-crds apps/cluster-crds
+        if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --config ct.yaml
+        run: ct install --config ct-install.yaml
+        if: steps.list-changed.outputs.changed == 'true'
