@@ -2,11 +2,11 @@
 # I should convert this to just bash
 set shell := ["pwsh.exe", "-c"]
 
-lint:
+ct-lint:
   #!/usr/bin/env bash
   ct lint --config ct-lint.yaml
 
-lint-install:
+ct-install:
   #!/usr/bin/env bash
   k3d cluster create -c tests/k3d-chart-testing.yaml --k3s-arg "--node-taint=CriticalAddonsOnly=true:NoExecute@server:*"
   ct install --config ct-install.yaml --charts apps/cluster-crds --skip-clean-up
@@ -29,6 +29,7 @@ bootstrap:
   just create
   just install-argo
   . util\Randomize-ArgoPassword.ps1
+  kubectl get apps -A
   Write-Output "(Linux/WSL) Run the below to enable kubectl:`n`tsource <(just set-kubeconfig)"
 
 install-argo helmargs="":
