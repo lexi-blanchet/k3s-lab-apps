@@ -24,7 +24,7 @@ bootstrap:
   just create
   just install-argo
   kubectl get apps -A
-  echo -e "(Linux/WSL) Run the below to enable kubectl:`n`tsource <(just set-kubeconfig)"
+  echo -e "(Linux/WSL) Run the below to enable kubectl:\n\tsource <(just set-kubeconfig)"
 
 # Clunky but we need to install the argo-cd secret before argo-cd so its a bit of a bootstrap paradox
 install-argo helmargs="":
