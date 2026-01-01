@@ -7,3 +7,4 @@ argo-cd:
     secret:
       annotations:
         sealedsecrets.bitnami.com/patch: "true"
+        sealedsecrets.bitnami.com/managed: "true"
