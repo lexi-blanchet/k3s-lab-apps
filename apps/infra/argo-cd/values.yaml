@@ -5,4 +5,5 @@ argo-cd:
     params:
       server.insecure: true
     secret:
-      createSecret: false
+      annotations:
+        sealedsecrets.bitnami.com/patch: "true"
